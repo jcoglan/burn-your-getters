@@ -1,0 +1,58 @@
+body {
+  font-family: FreeSans, Helvetica, Arial, sans-serif;
+}
+body, #preso, .slide, pre.sh_sourceCode, code {
+  background-color: #f8f8f8;
+  box-shadow: none;
+  color: #333;
+}
+
+#footer {
+  display: none;
+}
+
+.slide {
+  display: table;
+  padding: 0;
+}
+.content {
+  display: table-cell;
+  padding: 0;
+  vertical-align: middle;
+}
+
+h1 {
+  color: #000;
+  font-size: 500%;
+  font-weight: bold;
+  letter-spacing: -0.04em;
+}
+.title h1, .bullets h1 {
+  text-align: left;
+}
+
+.title h2, .bullets h2, .bullets ul, .bullets p {
+  font-size: 250%;
+  font-weight: normal;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.bullets ul li {
+  list-style: disc inside;
+  margin: 0;
+  padding: 0.2em 0;
+  text-align: left;
+}
+
+.content pre {
+  font-size: 150%;
+  line-height: 1.4em;
+}
+h2, code, p code, ul code {
+  font-size: 90%;
+}
+.diagram pre {
+  font-size: 220%;
+}
+
