@@ -33,7 +33,7 @@ does: you have a handshake parser, and once that's complete you replace it with
 a message parser of the right version. So, you start your socket object up with
 its handshake parser:
 
-    class WebSocket
+    class SocketController
       def initialize(io)
         @io        = io
         @handshake = WebSocket::Handshake::Server.new
@@ -152,7 +152,7 @@ back.
 We can achieve this by routing all TCP data to the protocol driver, and giving
 it a method to tell us what to write back to the socket.
 
-    class WebSocket
+    class SocketController
       def initialize(io)
         @io     = io
         @driver = WebSocket::Driver.server(self)
@@ -224,7 +224,7 @@ send information to our code. It can, since it holds a reference to our object,
 call our methods. And, it can emit events that we listen to to find out what's
 going on.
 
-    class WebSocket
+    class SocketController
       def initialize(io)
         @io     = io
         @driver = WebSocket::Driver.server(self)

@@ -34,7 +34,7 @@ Sec-WebSocket-Version: 13
 !SLIDE
 
 ```rb
-class WebSocket
+class SocketController
   def initialize(io)
     @io        = io
     @handshake = WebSocket::Handshake::Server.new
@@ -117,7 +117,7 @@ class WebSocket
 !SLIDE
 
 ```rb
-class WebSocket
+class SocketController
   def initialize(io)
     @io     = io
     @driver = WebSocket::Driver.server(self)
