@@ -22,10 +22,11 @@ If you're not familiar, WebSocket looks like this:
     4d 6f c5 b2 50 23 d6 ...
 
 That is, you get an HTTP GET request with some special headers, followed by a
-stream of bytes that represent a sequence of UTF-8 or binary messages. Because
-there are multiple versions of the WebSocket protocol in use, you need to look
-at the headers to decide which version is being used, then interpret the byte
-stream according to that version.
+stream of bytes that represent a sequence of frames. Those frames can be text
+or binary messages, they can continue a previous message, and there are control
+frames like ping, pong and close. There are multiple versions of the WebSocket
+protocol, so you need to look at the headers to decide which version is being
+used, then interpret the byte stream according to that version.
 
 My original design for this was similar in style to what the 'websocket' gem
 does: you have a handshake parser, and once that's complete you replace it with

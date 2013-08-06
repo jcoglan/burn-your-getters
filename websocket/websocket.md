@@ -20,6 +20,17 @@ Sec-WebSocket-Version: 13
 ```
 
 
+!SLIDE bullets
+# 6 frame types
+
+* text
+* binary
+* continuation
+* ping
+* pong
+* close
+
+
 !SLIDE
 
 ```rb
@@ -53,8 +64,8 @@ class WebSocket
       end
     when :connected
       @parser << data
-      while message = @parser.next
-        handle_message(message)
+      while frame = @parser.next
+        handle_frame(frame)
       end
     end
   end
