@@ -48,7 +48,7 @@ You can take a branching statement:
 
 And transform it to a hash lookup:
 
-   io.write({"HELLO" => "stop shouting",
+    io.write({"HELLO" => "stop shouting",
              "hello" => "speak up",
              "12345" => "numbers!"}[some_string])
 
