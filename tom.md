@@ -58,7 +58,7 @@ What if we stopped getting the state of other objects? What if we stopped obeyin
 
 BUT THERE'S A PROBLEM
 
-We've split our problem - communicating via WebSockets - over multiple components. This does two things; it reduces surface readability, and it changes the shape of our program. Let's talk about readability.
+Whereas originally, we had code which gave us an overview of the way in which our system interacted with websockets, now more of the details are hidden in James's library. This means we don't have to worry about those details, but it also means that you can't just look in one place and understand what the system does. Let's talk about readability.
 
 You can take a branching statement:
 
