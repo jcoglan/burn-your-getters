@@ -1,5 +1,5 @@
 !SLIDE
-# How telling changes the shape of your code
+# How telling can change the shape of your code
 
 !SLIDE
 
