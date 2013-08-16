@@ -1,9 +1,3 @@
-!SLIDE title
-
-# Burn your getters
-## How avoiding query methods improves design
-
-
 !SLIDE diagram
 
 ```
