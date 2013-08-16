@@ -46,7 +46,7 @@ What do you need to know to verify if that code works (and that every line is ne
 
 What's the common problem here, leading to our code needing to know so much?
 
-Getter methods. What do I mean by that? I mean any method which exposes the state of one component to another component. So that's things like `socrates.is_man?`; it's things like `irc.current_channel`; it's things like `bank_account.current_balance`. As soon as we define and start to rely on these methods, we end up with behaviours spread around the system. The IRCClient class was supposed to do everything to do with communicating with an IRC Server, but in fact it just provides some *methods* for doing so; it can't talk to the server properly unless everything using it uses those methods in the right way and in the right order. If the server's protocol changes, we may have to change the client, or we may have to change everything using the client.
+Getter methods. What do I mean by that? I mean any method which exposes the state of one component to another component. So that's things like `tweet.author`; it's things like `irc.connected?`; it's things like `irc.messages`. As soon as we define and start to rely on these methods, we end up with behaviours spread around the system. The IRC class that we use here was supposed to do everything to do with communicating with an IRC Server, but in fact it just provides some *methods* for doing so; it can't talk to the server properly unless everything using it uses those methods in the right way and in the right order. If the server's protocol changes, we may have to change the client, or we may have to change everything using the client.
 
 So how do we deal with this?
 
