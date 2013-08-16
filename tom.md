@@ -1,21 +1,47 @@
+18th August, 2012. (That's last year). Eurucamp. Fuelled by Club Mate and an inflated sense of self-worth, a philosopher named Tom Stuart embarks on his most ambitious trolling campaign so far. He sits down next to a programmer named James Coglan, and tells him that, to improve his code, he should stop using getter methods. Over the next 6 months, Tom (oh, that's me, by the way) took his (my) campaign to Twitter, and is amazed to realize that James has actually gone ahead and taken his advice. This is our story.
+
+# Introduction to burning your getters
+
 What's the biggest problem we have in programming? We call it coupling, we call it complexity, we call it 'crap'; it's the tendency of the components in our system to have too much knowledge. Look at this code: 
-#If-heavy code here
+
+    def get_trolls
+      tweets = @twitter_client.get_recent_tweets
+      trolls = []
+      tweets.each do |tweet|
+        trolls << tweet if tweet.author == "@mortice"
+      end
+      trolls
+    end
 
 What do you need to know to verify if that code works? You need to know:
 
-* The types of each value returned by the getter methods called
+* The types of each value expected and returned by the getter methods called
 * What different values the getter methods can return in what situations
 * What your contract with your callers is, so that you can return the right thing
 
 Look at this code:
 
-#Protocol-implementing code calling a library here
+    class IRCClient
+      def join_channel_with_message
+        @irc.connect(:freenode, :username => "getterburner")
+        while !@irc.connected?
+          sleep
+        end
 
+        @irc.join("#eurucamp")
+        @irc.send("#eurucamp", "Hey everyone!")
+
+        until interrupted? do
+          @irc.messages("#eurucamp").each {|m| puts "#{m.author}: #{m.text}"}
+        end
+      end
+    end
+    
 What do you need to know to verify if that code works (and that every line is necessary)? You need to know:
 
-* That the IRC library will let you send messages to a channel before you've joined it
 * That the IRC library only supports joining a channel once it's connected to a network
-* That the IRC library will respond to PINGs correctly 
+* That the IRC library will let you send messages to a channel before you've joined it
+* That the IRC library will respond to PINGs correctly and you'll stay connected
 * The format of messages returned by the IRC library
 
 What's the common problem here, leading to our code needing to know so much?
@@ -28,7 +54,7 @@ BURN YOUR GETTERS.
 
 What if we stopped getting the state of other objects? What if we stopped obeying the letter of the Law of Demeter (don't chain method calls) and started obeying its spirit (Tell, Don't Ask)? How would that look?
 
-#James takes over
+# Readability
 
 BUT THERE'S A PROBLEM
 
@@ -66,6 +92,8 @@ And you can then extend that polymorphic solution to allow new handlers for new 
 But is readability really the virtue we claim it is? I want to suggest: only sometimes. Clearly, all other things being equal, we want our code to be as readable as possible, so that the next person to change it doesn't have to twist their brain in knots to understand it. But what's easier to understand than readable code? Code you don't have to read. That is, if our systems are designed so that I can add new functionality to them at runtime - that is, without reading the code - then they've achieved our goal of being easy on the next person to work with them without pursuing readability.
 
 Now, clearly, there are limits to this. If you're only looking at one if-statement, dealing with one piece of non-local state, you may well decide that the flexibility benefits from polymorphizing it away don't outweigh the disadvantages. Polymorphizing is totally a word.
+
+#Iterative -> recursive
 
 How does telling change the shape of code? 
 
