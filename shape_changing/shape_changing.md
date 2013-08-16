@@ -1,4 +1,4 @@
-!SLIDE
+!SLIDE title
 # How telling can change the shape of your code
 
 !SLIDE
