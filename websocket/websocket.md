@@ -30,6 +30,27 @@ Sec-WebSocket-Version: 13
 
 !SLIDE
 
+```
+                      +------------+ --- new() ---> +-------------------------+
+                      |            | ---- << -----> |                         |
+                      |            | - finished? -> |                         |
+                      |            | --- valid? --> |    Handshake::Server    |
++----+                |            | - leftovers -> |                         |
+|    | <-- read() --- |            | -- version --> |                         |
+|    |                |   Socket   | --- to_s ----> +-------------------------+
+| IO |                | Controller |
+|    |                |            | --- new() ---> +-------------------------+
+|    | <-- write() -- |            | ---- << -----> | Frame::Incoming::Server |
++----+                |            | --- next ----> +-------------------------+
+                      |            |
+                      |            | --- new() ---> +-------------------------+
+                      |            | --- to_s ----> | Frame::Outgoing::Server |
+                      +------------+                +-------------------------+
+```
+
+
+!SLIDE
+
 ```rb
 class SocketController
   def initialize(io)
@@ -381,6 +402,27 @@ class SocketController
 !SLIDE title
 # An object-oriented approach
 ## Tell, don’t ask
+
+
+!SLIDE
+
+```
+                      +------------+
+                      |            |
+                      |            |                   +------------+
+                      |            | --- server() ---> |            |
++----+                |            |                   |            |
+|    | <-- read() --- |            | ---- parse() ---> |            |
+|    |                |   Socket   |                   |  WebSocket |
+| IO |                | Controller | <-- on_message -- |   Driver   |
+|    |                |            |                   |            |
+|    | <-- write() -- |            | ---- text() ----> |            |
++----+                |            |                   |            |
+                      |            | <--- write() ---- |            |
+                      |            |                   +------------+
+                      |            |
+                      +------------+
+```
 
 
 !SLIDE
