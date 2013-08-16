@@ -494,7 +494,7 @@ class SocketController
       # ...
     end
 
-    loop { @driver.parse(@io.read) } # <----- tell the driver to parse
+    loop { @driver.parse(@io.read) } # <---------- tell the driver to parse
   end
 
   def write(data)
@@ -516,7 +516,7 @@ class SocketController
     @io     = io
     @driver = WebSocket::Driver.server(self)
 
-    @driver.on :message do |event| # <------ driver tells you about events
+    @driver.on :message do |event| # <------------ driver tells you about events
       # ...
     end
 
@@ -554,7 +554,7 @@ class SocketController
   end
 
   def send(message)
-    @driver.text(message) # <----------------- tell the driver to send
+    @driver.text(message) # <--------------------- tell the driver to send
   end
 end
 ```
@@ -575,8 +575,8 @@ class SocketController
     loop { @driver.parse(@io.read) }
   end
 
-  def write(data) # <------------------------ driver tells you what/when to write
-    @io.write(data)
+  def write(data) # <----------------------------- driver tells you
+    @io.write(data)                              # what/when to write
   end
 
   def send(message)
