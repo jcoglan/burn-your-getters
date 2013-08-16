@@ -12,12 +12,9 @@
 
 ```rb
   def get_trolls
-    tweets = @twitter_client.get_recent_tweets
-    trolls = []
-    tweets.each do |tweet|
-      trolls << tweet if tweet.author == "@mortice"
+    @twitter_client.get_recent_tweets.select do |t|
+      t.author == "mortice"
     end
-    trolls
   end
 ```
 
