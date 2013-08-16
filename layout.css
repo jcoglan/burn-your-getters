@@ -24,7 +24,7 @@ h1 {
   font-weight: bold;
   letter-spacing: -0.04em;
 }
-.title h1, .bullets h1 {
+.title h1, .title p, .bullets h1 {
   text-align: left;
 }
 

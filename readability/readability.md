@@ -1,6 +1,6 @@
-!SLIDE
+!SLIDE title
 
-#But there's a problem
+# But there’s a problem
 
 !SLIDE
 
@@ -34,9 +34,9 @@
   handler_for(string).write_response(io)
 ```
 
-!SLIDE
+!SLIDE title
 
-polymorphize
+**polymorphize**
 
 Pronunciation: /ˌpɒlɪˈmɔːfɪz/
 

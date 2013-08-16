@@ -1,3 +1,8 @@
+!SLIDE title
+# WebSockets
+## Without reading the RFC
+
+
 !SLIDE diagram
 
 ```
@@ -31,20 +36,20 @@ Sec-WebSocket-Version: 13
 !SLIDE
 
 ```
-                      +------------+ --- new() ---> +-------------------------+
-                      |            | ---- << -----> |                         |
-                      |            | - finished? -> |                         |
-                      |            | --- valid? --> |    Handshake::Server    |
-+----+                |            | - leftovers -> |                         |
-|    | <-- read() --- |            | -- version --> |                         |
-|    |                |   Socket   | --- to_s ----> +-------------------------+
+                      +------------+ |-- new() ---> +-------------------------+
+                      |            | |--- << -----> |                         |
+                      |            | | finished? -> |                         |
+                      |            | |-- valid? --> |    Handshake::Server    |
++----+                |            | | leftovers -> |                         |
+|    | <-- read() --| |            | |- version --> |                         |
+|    |                |   Socket   | |-- to_s ----> +-------------------------+
 | IO |                | Controller |
-|    |                |            | --- new() ---> +-------------------------+
-|    | <-- write() -- |            | ---- << -----> | Frame::Incoming::Server |
-+----+                |            | --- next ----> +-------------------------+
+|    |                |            | |-- new() ---> +-------------------------+
+|    | <-- write() -| |            | |--- << -----> | Frame::Incoming::Server |
++----+                |            | |-- next ----> +-------------------------+
                       |            |
-                      |            | --- new() ---> +-------------------------+
-                      |            | --- to_s ----> | Frame::Outgoing::Server |
+                      |            | |-- new() ---> +-------------------------+
+                      |            | |-- to_s ----> | Frame::Outgoing::Server |
                       +------------+                +-------------------------+
 ```
 
@@ -410,15 +415,15 @@ class SocketController
                       +------------+
                       |            |
                       |            |                   +------------+
-                      |            | --- server() ---> |            |
+                      |            | |-- server() ---> |            |
 +----+                |            |                   |            |
-|    | <-- read() --- |            | ---- parse() ---> |            |
+|    | <-- read() --| |            | |--- parse() ---> |            |
 |    |                |   Socket   |                   |  WebSocket |
-| IO |                | Controller | <-- on_message -- |   Driver   |
+| IO |                | Controller | <-- on_message -| |   Driver   |
 |    |                |            |                   |            |
-|    | <-- write() -- |            | ---- text() ----> |            |
+|    | <-- write() -| |            | |--- text() ----> |            |
 +----+                |            |                   |            |
-                      |            | <--- write() ---- |            |
+                      |            | <--- write() ---| |            |
                       |            |                   +------------+
                       |            |
                       +------------+
@@ -432,6 +437,32 @@ class SocketController
   def initialize(io)
     @io     = io
     @driver = WebSocket::Driver.server(self)
+
+    @driver.on :message do |event|
+      # ...
+    end
+
+    loop { @driver.parse(@io.read) }
+  end
+
+  def write(data)
+    @io.write(data)
+  end
+
+  def send(message)
+    @driver.text(message)
+  end
+end
+```
+
+
+!SLIDE
+
+```rb
+class SocketController
+  def initialize(io)
+    @io     = io
+    @driver = WebSocket::Driver.server(self) # <-- pass in reference to self
 
     @driver.on :message do |event|
       # ...
