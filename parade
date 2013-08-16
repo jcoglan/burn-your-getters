@@ -1,4 +1,5 @@
 title 'Burn Your Getters'
+section 'getter_burning'
 section 'websocket'
 section 'returns'
 
