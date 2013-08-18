@@ -1,21 +1,8 @@
 body, #preso, .slide, pre.sh_sourceCode, pre.highlight, pre, code {
-  background-color: #434343;
-  color: #f2f2f2;
+  background-color: #f8f8f8;
+  color: #333;
 }
 
-pre.highlight .nb,
-pre.highlight .nc,
-pre.highlight .no,
-pre.highlight .vi {
-  color: #00D2D8;
-}
-
-pre.highlight .nf {
-  color: #f04730;
-}
-
-pre.highlight .mi,
-pre.highlight .s2,
-pre.highlight .ss {
-  color: #fcb404;
+h1 {
+  color: #000;
 }
