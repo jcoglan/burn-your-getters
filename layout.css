@@ -11,10 +11,13 @@ body, #preso, .slide, pre.sh_sourceCode, pre.highlight, pre, code {
 
 .slide {
   display: table;
+  height: 600px;
   padding: 0;
 }
 .content {
   display: table-cell;
+  height: 80%;
+  margin-bottom: 15%;
   padding: 0;
   vertical-align: middle;
 }
